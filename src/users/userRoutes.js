@@ -10,8 +10,8 @@ const userRouter = Router();
 
 userRouter.post("/user", addUser);
 userRouter.get("/user", listUsers);
-userRouter.get("/user/:title", getUser);
-userRouter.put("/user/:title", updateUser);
-userRouter.delete("/user/:title", deleteUser);
+userRouter.get("/user/:email", getUser);
+userRouter.put("/user/:email", updateUser);
+userRouter.delete("/user/:email", deleteUser);
 
 module.exports = userRouter;
