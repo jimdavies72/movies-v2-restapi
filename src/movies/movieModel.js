@@ -11,7 +11,7 @@ const movieSchema = new mongoose.Schema({
       type: String,
     },
   ],
-  email: {
+  user_id: {
     type: String,
     required: false,
   },

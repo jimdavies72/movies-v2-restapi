@@ -22,7 +22,7 @@ exports.listMovies = async (req, res) => {
 
 exports.listMyMovies = async (req, res) => {
   try {
-    const movies = await Movie.find({ email: req.params.email });
+    const movies = await Movie.find({ user_id: req.params.user_id });
     res.status(200).send({ movies });
   } catch (error) {
     console.log(error);
@@ -53,7 +53,7 @@ exports.updateMovie = async (req, res) => {
     result = await Movie.updateOne(filter, update, options);
 
     if (result.matchedCount >= 1) {
-      res.status(200).send({ msg: "Movie updated", data: req.body });
+      res.status(200).send({ msg: `Movie: ${req.params.title} updated` });
     } else {
       res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
     }
@@ -78,4 +78,8 @@ exports.deleteMovie = async (req, res) => {
     console.log(error);
     res.status(500).send({ error: error.message });
   }
+};
+
+exports.testRoute = async (req, res) => {
+  res.status(200).send({ test: "test route works" });
 };
