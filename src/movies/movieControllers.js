@@ -12,7 +12,17 @@ exports.addMovie = async (req, res) => {
 
 exports.listMovies = async (req, res) => {
   try {
-    const movies = await Movie.find({});
+    const movies = await Movie.find({}, "title actors");
+    res.status(200).send({ movies });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+exports.listMyMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find({ email: req.params.email });
     res.status(200).send({ movies });
   } catch (error) {
     console.log(error);
@@ -22,11 +32,11 @@ exports.listMovies = async (req, res) => {
 
 exports.getMovie = async (req, res) => {
   try {
-    const movie = await Movie.find({ title: req.params.title });
+    const movie = await Movie.find({ title: req.params.title }, "title actors");
     if (movie.length <= 0) {
-      res.status(404).json({ msg: `Movie: ${req.params.title} not found` });
+      res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
     } else {
-      res.status(200).json({ movie });
+      res.status(200).send({ movie });
     }
   } catch (error) {
     console.log(error);
@@ -43,9 +53,9 @@ exports.updateMovie = async (req, res) => {
     result = await Movie.updateOne(filter, update, options);
 
     if (result.matchedCount >= 1) {
-      res.status(200).json({ msg: "Movie updated", data: req.body });
+      res.status(200).send({ msg: "Movie updated", data: req.body });
     } else {
-      res.status(404).json({ msg: `Movie: ${req.params.title} not found` });
+      res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
     }
   } catch (error) {
     console.log(error);
@@ -58,11 +68,11 @@ exports.deleteMovie = async (req, res) => {
     result = await Movie.deleteOne({ title: req.params.title });
 
     if (result.deletedCount === 0) {
-      res.status(404).json({ msg: `Movie: ${req.params.title} not found` });
+      res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
     } else {
       res
         .status(200)
-        .json({ msg: `Movie: ${req.params.title} has been removed` });
+        .send({ msg: `Movie: ${req.params.title} has been removed` });
     }
   } catch (error) {
     console.log(error);

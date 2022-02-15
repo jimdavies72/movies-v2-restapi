@@ -11,6 +11,10 @@ const movieSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  email: {
+    type: String,
+    required: false,
+  },
 });
 
 const Movie = new mongoose.model("Movie", movieSchema);

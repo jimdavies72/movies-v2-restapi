@@ -31,9 +31,9 @@ exports.getUser = async (req, res) => {
   try {
     const user = await User.find({ email: req.params.email });
     if (user.length <= 0) {
-      res.status(404).json({ msg: `User: ${req.params.email} not found` });
+      res.status(404).send({ msg: `User: ${req.params.email} not found` });
     } else {
-      res.status(200).json({ user });
+      res.status(200).send({ user });
     }
   } catch (error) {
     console.log(error);
@@ -62,9 +62,9 @@ exports.updateUser = async (req, res) => {
     result = await User.updateOne(filter, update, options);
 
     if (result.matchedCount >= 1) {
-      res.status(200).json({ msg: `User: ${req.params.email} updated` });
+      res.status(200).send({ msg: `User: ${req.params.email} updated` });
     } else {
-      res.status(404).json({ msg: `User: ${req.params.email} not found` });
+      res.status(404).send({ msg: `User: ${req.params.email} not found` });
     }
   } catch (error) {
     console.log(error);
@@ -77,11 +77,11 @@ exports.deleteUser = async (req, res) => {
     result = await User.deleteOne({ email: req.params.email });
 
     if (result.deletedCount === 0) {
-      res.status(404).json({ msg: `User: ${req.params.email} not found` });
+      res.status(404).send({ msg: `User: ${req.params.email} not found` });
     } else {
       res
         .status(200)
-        .json({ msg: `User: ${req.params.email} has been removed` });
+        .send({ msg: `User: ${req.params.email} has been removed` });
     }
   } catch (error) {
     console.log(error);
