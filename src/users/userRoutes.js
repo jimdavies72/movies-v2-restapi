@@ -5,13 +5,16 @@ const {
   getUser,
   updateUser,
   deleteUser,
+  loginUser,
 } = require("./userControllers");
+const { hashPass, decryptPass } = require("../middleware");
 const userRouter = Router();
 
-userRouter.post("/user", addUser);
+userRouter.post("/user", hashPass, addUser);
 userRouter.get("/user", listUsers);
-userRouter.get("/user/:email", getUser);
-userRouter.put("/user/:email", updateUser);
-userRouter.delete("/user/:email", deleteUser);
+userRouter.get("/user/:username", getUser);
+userRouter.put("/user/:username", updateUser);
+userRouter.delete("/user/:username", deleteUser);
+userRouter.post("/login", decryptPass, loginUser);
 
 module.exports = userRouter;
