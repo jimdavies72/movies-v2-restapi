@@ -35,10 +35,7 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    let update = {};
-    //@TODO: If password update, hash
-
-    update = req.body;
+    const update = req.body;
 
     const filter = { username: req.params.username };
     const options = { new: false };
@@ -50,6 +47,14 @@ exports.updateUser = async (req, res) => {
     } else {
       res.status(404).send({ msg: `User: ${req.params.username} not found` });
     }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });

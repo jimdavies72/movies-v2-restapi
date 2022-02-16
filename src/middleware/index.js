@@ -22,7 +22,7 @@ exports.decryptPass = async (req, res, next) => {
     ) {
       next();
     } else {
-      throw new Error("Incorrect login credentials supplied");
+      throw new Error("Incorrect credentials supplied");
     }
   } catch (error) {
     res.status(500).send({ err: error.message });
@@ -35,6 +35,18 @@ exports.validateEmail = (req, res, next) => {
       next();
     } else {
       throw new Error("email address is in incorrect format");
+    }
+  } catch (error) {
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.validateUsername = (req, res, next) => {
+  try {
+    if (req.body.username.match("^[A-Za-z0-9]+$")) {
+      next();
+    } else {
+      throw new Error("Username can only use letters and numbers");
     }
   } catch (error) {
     res.status(500).send({ err: error.message });
