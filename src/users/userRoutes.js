@@ -7,10 +7,10 @@ const {
   deleteUser,
   loginUser,
 } = require("./userControllers");
-const { hashPass, decryptPass } = require("../middleware");
+const { hashPass, decryptPass, validateEmail } = require("../middleware");
 const userRouter = Router();
 
-userRouter.post("/user", hashPass, addUser);
+userRouter.post("/user", validateEmail, hashPass, addUser);
 userRouter.get("/user", listUsers);
 userRouter.get("/user/:username", getUser);
 userRouter.put("/user/:username", updateUser);

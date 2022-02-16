@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const validator = require("email-validator");
 
 const User = require("../users/userModel");
 
@@ -24,7 +25,18 @@ exports.decryptPass = async (req, res, next) => {
       throw new Error("Incorrect login credentials supplied");
     }
   } catch (error) {
-    console.log("error");
+    res.status(500).send({ err: error.message });
+  }
+};
+
+exports.validateEmail = (req, res, next) => {
+  try {
+    if (validator.validate(req.body.email)) {
+      next();
+    } else {
+      throw new Error("email address is in incorrect format");
+    }
+  } catch (error) {
     res.status(500).send({ err: error.message });
   }
 };
