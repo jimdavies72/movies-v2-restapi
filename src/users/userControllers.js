@@ -22,11 +22,10 @@ exports.listUsers = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const user = await User.findOne({ username: req.params.username });
-    if (!user) {
-      res.status(404).send({ msg: `User: ${req.params.username} not found` });
-    } else {
-      res.status(200).send({ user });
-    }
+
+    user
+      ? res.status(200).send({ user })
+      : res.status(404).send({ msg: `User: ${req.params.username} not found` });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });
@@ -37,15 +36,13 @@ exports.updateUser = async (req, res) => {
   try {
     const update = req.body;
     const filter = { username: req.params.username };
-    const options = { new: false };
+    const options = { new: true };
 
-    result = await User.updateOne(filter, update, options);
+    const user = await User.findOneAndUpdate(filter, update, options);
 
-    if (result.matchedCount >= 1) {
-      res.status(200).send({ msg: `User: ${req.params.username} updated` });
-    } else {
-      res.status(404).send({ msg: `User: ${req.params.username} not found` });
-    }
+    user
+      ? res.status(200).send({ user })
+      : res.status(404).send({ msg: `User: ${req.params.username} not found` });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });
@@ -56,15 +53,11 @@ exports.updatePassword = async (req, res) => {
   try {
     const update = { password: req.body.password };
     const filter = { username: req.body.username };
-    const options = { new: false };
+    const options = { new: true };
 
-    result = await User.updateOne(filter, update, options);
+    const user = await User.findOneAndUpdate(filter, update, options);
 
-    if (result.matchedCount >= 1) {
-      res.status(200).send({ msg: `User: ${req.body.username} updated` });
-    } else {
-      res.status(404).send({ msg: `User: ${req.body.username} not found` });
-    }
+    res.status(200).send({ user });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });
@@ -73,9 +66,9 @@ exports.updatePassword = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    result = await User.deleteOne({ username: req.params.username });
+    const user = await User.deleteOne({ username: req.params.username });
 
-    if (result.deletedCount === 0) {
+    if (user.deletedCount === 0) {
       res.status(404).send({ msg: `User: ${req.params.username} not found` });
     } else {
       res
