@@ -36,7 +36,6 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const update = req.body;
-
     const filter = { username: req.params.username };
     const options = { new: false };
 
@@ -55,6 +54,17 @@ exports.updateUser = async (req, res) => {
 
 exports.updatePassword = async (req, res) => {
   try {
+    const update = { password: req.body.password };
+    const filter = { username: req.body.username };
+    const options = { new: false };
+
+    result = await User.updateOne(filter, update, options);
+
+    if (result.matchedCount >= 1) {
+      res.status(200).send({ msg: `User: ${req.body.username} updated` });
+    } else {
+      res.status(404).send({ msg: `User: ${req.body.username} not found` });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });

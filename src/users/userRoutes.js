@@ -13,6 +13,7 @@ const {
   decryptPass,
   validateEmail,
   validateUsername,
+  updatePass,
 } = require("../middleware");
 const userRouter = Router();
 
@@ -22,6 +23,6 @@ userRouter.get("/user/:username", getUser);
 userRouter.put("/user/:username", validateEmail, updateUser);
 userRouter.delete("/user/:username", deleteUser);
 userRouter.post("/login", decryptPass, loginUser);
-userRouter.put("/user/updatepassword", decryptPass, hashPass, updatePassword);
+userRouter.put("/updatepassword", updatePass, updatePassword);
 
 module.exports = userRouter;
