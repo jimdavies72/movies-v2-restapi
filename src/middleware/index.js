@@ -11,7 +11,7 @@ exports.hashPass = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -27,7 +27,7 @@ exports.decryptPass = async (req, res, next) => {
       throw new Error("Incorrect credentials supplied");
     }
   } catch (error) {
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -44,7 +44,7 @@ exports.updatePass = async (req, res, next) => {
       throw new Error("Incorrect credentials supplied");
     }
   } catch (error) {
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -56,7 +56,7 @@ exports.validateEmail = (req, res, next) => {
       throw new Error("email address is in incorrect format");
     }
   } catch (error) {
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 
@@ -68,6 +68,6 @@ exports.validateUsername = (req, res, next) => {
       throw new Error("Username can only use letters and numbers");
     }
   } catch (error) {
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };

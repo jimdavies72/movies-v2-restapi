@@ -6,7 +6,7 @@ exports.addUser = async (req, res) => {
     res.status(200).send({ user: newUser });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
 exports.listUsers = async (req, res) => {
@@ -86,6 +86,6 @@ exports.loginUser = async (req, res) => {
     res.status(200).send({ user: req.user });
   } catch (error) {
     console.log(error);
-    res.status(500).send({ err: error.message });
+    res.status(500).send({ error: error.message });
   }
 };
