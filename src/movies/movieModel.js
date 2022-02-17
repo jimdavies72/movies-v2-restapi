@@ -11,9 +11,11 @@ const movieSchema = new mongoose.Schema({
       type: String,
     },
   ],
+  synopsis: {
+    type: String,
+  },
   user_id: {
     type: String,
-    required: false,
   },
 });
 
