@@ -66,14 +66,12 @@ exports.updatePassword = async (req, res) => {
 
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.deleteOne({ username: req.params.username });
+    const user = await User.deleteOne({ _id: req.params.id });
 
     if (user.deletedCount === 0) {
-      res.status(404).send({ msg: `User: ${req.params.username} not found` });
+      res.status(404).send({ msg: `User: ${req.params.id} not found` });
     } else {
-      res
-        .status(200)
-        .send({ msg: `User: ${req.params.username} has been removed` });
+      res.status(200).send({ msg: `User: ${req.params.id} has been removed` });
     }
   } catch (error) {
     console.log(error);

@@ -30,6 +30,16 @@ exports.listMyMovies = async (req, res) => {
   }
 };
 
+exports.searchMovies = async (req, res) => {
+  try {
+    const movies = await Movie.find({ title: { $regex: req.params.title } });
+    res.status(200).send({ movies });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: error.message });
+  }
+};
+
 exports.getMovie = async (req, res) => {
   try {
     const movie = await Movie.findOne(
@@ -65,13 +75,11 @@ exports.updateMovie = async (req, res) => {
 
 exports.deleteMovie = async (req, res) => {
   try {
-    result = await Movie.deleteOne({ title: req.params.title });
+    result = await Movie.deleteOne({ _id: req.params.id });
     if (result.deletedCount === 0) {
-      res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
+      res.status(404).send({ msg: `Movie: ${req.params.id} not found` });
     } else {
-      res
-        .status(200)
-        .send({ msg: `Movie: ${req.params.title} has been removed` });
+      res.status(200).send({ msg: `Movie: ${req.params.id} has been removed` });
     }
   } catch (error) {
     console.log(error);

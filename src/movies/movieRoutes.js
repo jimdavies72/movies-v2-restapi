@@ -3,6 +3,7 @@ const {
   addMovie,
   listMovies,
   listMyMovies,
+  searchMovies,
   getMovie,
   updateMovie,
   deleteMovie,
@@ -12,10 +13,11 @@ const movieRouter = Router();
 
 movieRouter.post("/movie", addMovie);
 movieRouter.get("/movie", listMovies);
+movieRouter.get("/movie/search/:title", searchMovies);
 movieRouter.get("/mymovies/:user_id", listMyMovies);
 movieRouter.get("/movie/:title", getMovie);
 movieRouter.put("/movie/:title", updateMovie);
-movieRouter.delete("/movie/:title", deleteMovie);
+movieRouter.delete("/movie/:id", deleteMovie);
 movieRouter.get("/test", testRoute);
 
 module.exports = movieRouter;

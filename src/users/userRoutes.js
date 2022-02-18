@@ -21,7 +21,7 @@ userRouter.post("/user", validateUsername, validateEmail, hashPass, addUser);
 userRouter.get("/user", listUsers);
 userRouter.get("/user/:username", getUser);
 userRouter.put("/user/:username", validateEmail, updateUser);
-userRouter.delete("/user/:username", deleteUser);
+userRouter.delete("/user/:id", deleteUser);
 userRouter.post("/login", decryptPass, loginUser);
 userRouter.put("/updatepassword", updatePass, updatePassword);
 
