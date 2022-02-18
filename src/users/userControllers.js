@@ -35,7 +35,7 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const update = req.body;
-    const filter = { username: req.params.username };
+    const filter = { _id: req.params.id };
     const options = { new: true };
 
     const user = await User.findOneAndUpdate(filter, update, options);

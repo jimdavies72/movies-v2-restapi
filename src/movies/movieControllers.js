@@ -58,7 +58,7 @@ exports.getMovie = async (req, res) => {
 
 exports.updateMovie = async (req, res) => {
   try {
-    const filter = { title: req.params.title };
+    const filter = { _id: req.params.id };
     const update = req.body;
     const options = { new: true };
 
@@ -66,7 +66,7 @@ exports.updateMovie = async (req, res) => {
 
     movie
       ? res.status(200).send({ movie })
-      : res.status(404).send({ msg: `Movie: ${req.params.title} not found` });
+      : res.status(404).send({ msg: `Movie: ${req.params.id} not found` });
   } catch (error) {
     console.log(error);
     res.status(500).send({ error: error.message });
