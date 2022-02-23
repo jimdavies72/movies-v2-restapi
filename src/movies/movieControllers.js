@@ -12,7 +12,7 @@ exports.addMovie = async (req, res) => {
 
 exports.listMovies = async (req, res) => {
   try {
-    const movies = await Movie.find({}, "title actors synopsis");
+    const movies = await Movie.find({});
     res.status(200).send({ movies });
   } catch (error) {
     console.log(error);
